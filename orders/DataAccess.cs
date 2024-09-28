@@ -27,7 +27,7 @@ namespace orders
                 try
                 {
                     connection.Open(); // Open the connection
-                    Console.WriteLine("Connection successful!");
+                    
                     
                 }
                 catch (SqlException ex)
@@ -44,6 +44,10 @@ namespace orders
             
 
         }
+
+
+
+
 
         public void insert_record(SqlConnection cnn, string tableName, Dictionary<string, object> columns)
             {

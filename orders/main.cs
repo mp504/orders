@@ -8,12 +8,11 @@ namespace orders
     public class main
     {
 
-         string connectionString = "Server=desktop-ol5def3; Database=orders; Integrated Security=True; TrustServerCertificate=True;";
-
+         
         public static void Main(String[] args)
         {
 
-            string connectionString = "Server=desktop-ol5def3; Database=orders; Integrated Security=True; TrustServerCertificate=True;";
+            string connectionString = "Server=DESKTOP-B55SNFG; Database=orders; Integrated Security=True; TrustServerCertificate=True;";
 
             ordering ordering = new ordering();
             

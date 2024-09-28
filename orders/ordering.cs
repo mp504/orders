@@ -6,20 +6,9 @@ namespace orders
 {
     public class ordering
     {
-        //private static string connectionString = "Server=desktop-ol5def3; Database=orders; Integrated Security=True; TrustServerCertificate=True;";
-
-
-
-       
-
+        
         
 
-
-
-        
-
-        
-        //DataAccess access = new DataAccess(connectionString);
 
         public void order(string connectionString,int CID)
         {
@@ -55,16 +44,19 @@ namespace orders
                     case 1:
                         price = 30;
                         Console.WriteLine("you choosed pizza.");
+                        order_name = "Pizza";
                         break;
 
                     case 2:
                         price = 20;
                         Console.WriteLine("you choosed Burger.");
+                        order_name = "Burger";
                         break;
 
                     case 3:
                         price = 10;
                         Console.WriteLine("you choosed Shawrma.");
+                        order_name = "Shawrma";
                         break;
 
                     default:
@@ -114,45 +106,47 @@ namespace orders
             string query = "SELECT * FROM orders";
 
             DataAccess dataAccess = new DataAccess(ConnectionString);
-            SqlConnection cnn = dataAccess.connect_to_SQL();
-            try
+            using (SqlConnection cnn = dataAccess.connect_to_SQL())
             {
-
-
-
-                SqlCommand command = new SqlCommand(query, cnn);
-
-
-                using (SqlDataReader reader = command.ExecuteReader())
+                try
                 {
 
-                    if (reader.HasRows)
+
+
+                    SqlCommand command = new SqlCommand(query, cnn);
+
+
+                    using (SqlDataReader reader = command.ExecuteReader())
                     {
-                        for (int i = 0; i < reader.FieldCount; i++)
-                        {
-                            Console.Write(reader.GetName(i) + "\t");
-                        }
-                        Console.WriteLine();
 
-
-                        while (reader.Read())
+                        if (reader.HasRows)
                         {
                             for (int i = 0; i < reader.FieldCount; i++)
                             {
-                                Console.Write(reader[i] + "\t");
+                                Console.Write(reader.GetName(i) + "\t");
                             }
                             Console.WriteLine();
+
+
+                            while (reader.Read())
+                            {
+                                for (int i = 0; i < reader.FieldCount; i++)
+                                {
+                                    Console.Write(reader[i] + "\t");
+                                }
+                                Console.WriteLine();
+                            }
+                        }
+                        else
+                        {
+                            Console.WriteLine("No rows found.");
                         }
                     }
-                    else
-                    {
-                        Console.WriteLine("No rows found.");
-                    }
                 }
-            }
-            catch (Exception ex)
-            {
-                Console.WriteLine("Error: " + ex.Message);
+                catch (Exception ex)
+                {
+                    Console.WriteLine("Error: " + ex.Message);
+                }
             }
 
 
@@ -167,50 +161,52 @@ namespace orders
             string query = "SELECT * FROM customers";
 
             DataAccess dataAccess = new DataAccess(connectionString);
-            SqlConnection cnn = dataAccess.connect_to_SQL();
-            try
+            using (SqlConnection cnn = dataAccess.connect_to_SQL())
             {
-
-
-
-                SqlCommand command = new SqlCommand(query, cnn);
-                
-
-
-                using (SqlDataReader reader = command.ExecuteReader())
+                try
                 {
 
-                    if (reader.HasRows)
+
+
+                    SqlCommand command = new SqlCommand(query, cnn);
+
+
+
+                    using (SqlDataReader reader = command.ExecuteReader())
                     {
-                        // print headers
-                        for (int i = 0; i < reader.FieldCount; i++)
-                        {
-                            Console.Write(reader.GetName(i) + "\t");
-                        }
-                        Console.WriteLine();
 
-
-                        while (reader.Read())
+                        if (reader.HasRows)
                         {
+                            // print headers
                             for (int i = 0; i < reader.FieldCount; i++)
                             {
-                                Console.Write(reader[i] + "\t");
+                                Console.Write(reader.GetName(i) + "\t");
                             }
                             Console.WriteLine();
+
+
+                            while (reader.Read())
+                            {
+                                for (int i = 0; i < reader.FieldCount; i++)
+                                {
+                                    Console.Write(reader[i] + "\t");
+                                }
+                                Console.WriteLine();
+                            }
+                        }
+                        else
+                        {
+                            Console.WriteLine("No rows found.");
                         }
                     }
-                    else
-                    {
-                        Console.WriteLine("No rows found.");
-                    }
                 }
-            }
-            catch (Exception ex)
-            {
-                Console.WriteLine("Error: " + ex.Message);
-            }
+                catch (Exception ex)
+                {
+                    Console.WriteLine("Error: " + ex.Message);
+                }
 
 
+            }
         }
 
 
